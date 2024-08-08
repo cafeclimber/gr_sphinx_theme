@@ -1,0 +1,238 @@
+{# TEMPLATE VAR SETTINGS #}
+{%- set url_root = pathto('', 1) %}
+{%- if url_root == '#' %}{% set url_root = '' %}{% endif %}
+{%- if not embedded and docstitle %}
+{%- set titlesuffix = " &mdash; "|safe + docstitle|e %}
+{%- else %}
+{%- set titlesuffix = "" %}
+{%- endif %}
+{%- set lang_attr = 'en' if language == None else (language | replace('_', '-')) %}
+{%- if theme_logo_url -%} {%- set logo_url = theme_logo_url -%} {%- endif -%}
+{%- if theme_logo_height -%} {%- set logo_height = theme_logo_height -%} {%- endif -%}
+{% import 'theme_variables.jinja' as theme_variables %}
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="{{ lang_attr }}" > <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="{{ lang_attr }}"> <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  {{ metatags }}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% block htmltitle %}
+  <title>{{ title|striptags|e }}{{ titlesuffix }}</title>
+  {% endblock %}
+
+  {# FAVICON #}
+  {% if favicon %}
+  <link rel="shortcut icon" href="{{ pathto('_static/' + favicon, 1) }}" />
+  {% endif %}
+  {# CANONICAL URL #}
+  {% if theme_canonical_url %}
+  <link rel="canonical" href="{{ theme_canonical_url }}{{ pagename }}.html" />
+  {% endif %}
+
+  {# CSS #}
+
+  {# OPENSEARCH #}
+  {% if not embedded %}
+  {% if use_opensearch %}
+  <link rel="search" type="application/opensearchdescription+xml"
+    title="{% trans docstitle=docstitle|e %}Search within {{ docstitle }}{% endtrans %}"
+    href="{{ pathto('_static/opensearch.xml', 1) }}" />
+  {% endif %}
+
+  {% endif %}
+
+  {%- for css in css_files %}
+  {%- if css|attr("rel") %}
+  <link rel="{{ css.rel }}" href="{{ pathto(css.filename, 1) }}" type="text/css" {% if css.title is not none %}
+    title="{{ css.title }}" {% endif %} />
+  {%- else %}
+  <link rel="stylesheet" href="{{ pathto(css, 1) }}" type="text/css" />
+  {%- endif %}
+  {%- endfor %}
+
+  {%- block linktags %}
+  {%- if hasdoc('about') %}
+  <link rel="author" title="{{ _('About these documents') }}" href="{{ pathto('about') }}" />
+  {%- endif %}
+  {%- if hasdoc('genindex') %}
+  <link rel="index" title="{{ _('Index') }}" href="{{ pathto('genindex') }}" />
+  {%- endif %}
+  {%- if hasdoc('search') %}
+  <link rel="search" title="{{ _('Search') }}" href="{{ pathto('search') }}" />
+  {%- endif %}
+  {%- if hasdoc('copyright') %}
+  <link rel="copyright" title="{{ _('Copyright') }}" href="{{ pathto('copyright') }}" />
+  {%- endif %}
+  {%- if next %}
+  <link rel="next" title="{{ next.title|striptags|e }}" href="{{ next.link|e }}" />
+  {%- endif %}
+  {%- if prev %}
+  <link rel="prev" title="{{ prev.title|striptags|e }}" href="{{ prev.link|e }}" />
+  {%- endif %}
+  {%- endblock %}
+
+  {%- block extrahead %}
+  {% endblock %}
+
+  {# Keep modernizr in head - http://modernizr.com/docs/#installing #}
+  <script src="{{ pathto('_static/js/modernizr.min.js', 1) }}"></script>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"
+    integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+</head>
+
+<body class="page container-max vh-100 d-flex flex-column">
+
+  <nav class="navbar navbar-expand-lg" id="main-nav">
+    <div class="container-fluid">
+      <div class="navbar-brand">
+        {%- if logo_url %}
+        <a href="{{ logo_url }}">
+          <img src="{{ pathto('_static/' + logo_url, 1) }}" {%- if logo_alt %} alt="{{ logo_alt|e }}" {% endif %} {%- if
+            logo_title and not logo_url %} title="{{ logo_title|e }}" {% endif %} {%- if 1 %}class="logo-image" />{%
+          endif %}
+        </a>
+        {%- endif %}
+      </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Get Started</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Tutorials</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Docs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Reference</a>
+          </li>
+        </ul>
+        <!-- TODO: Add GitHub badge-->
+      </div>
+    </div>
+  </nav>
+
+  <div class="gr-container d-flex flex-grow-1">
+    <nav class="d-flex flex-column px-3 pt-3 h-100 overflow-y-auto" id="side-nav">
+      <div class="gr-left-menu-search">
+        {% block sidebartitle %}
+
+        <!-- TODO: Implement version browser -->
+        {% if theme_versions %}
+        <select id="version-select" class="form-select" aria-label="Version Selection">
+          {%- for v, url in theme_versions.items() %}
+          {%- if v=="stable" -%}
+          <option selected value="{{theme_versions[version]}}">stable</option>
+          {%- else -%}
+          <option value="{{url}}">{{v}}</option>
+          {%- endif %}
+          {%- endfor %}
+        </select>
+        {% endif %}
+
+        {% include "searchbox.html" %}
+
+        {% endblock %}
+      </div>
+      {% block menu %}
+      {% set global_toc = toctree(maxdepth=8,
+      collapse=False,
+      includehidden=True,
+      titles_only=True) %}
+      <div class="toc">
+        {% if global_toc %}
+        {{ global_toc }}
+        {% else %}
+        <!-- Local TOC -->
+        <div class="local-toc">{{ toc }}</div>
+        {% endif %}
+      </div>
+      {% endblock %}
+    </nav>
+
+    <div class="d-flex flex-column" id="main-section">
+      <div class="gr-page-level-bar border-bottom py-2 d-flex align-items-center id=" gr-page-level-bar">
+        <div class="gr-breadcrumbs-wrapper">
+          {% include "breadcrumbs.html" %}
+        </div>
+
+        <div class="page-nav-title">
+          Page Navigation
+        </div>
+      </div>
+
+      <section class="overflow-y-hidden d-flex" id="content-section">
+        {%- block content %}
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ theme_analytics_id }}" height="0"
+            width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+        {% if theme_style_external_links|tobool %}
+        <div class="rst-content style-external-links overflow-y-auto">
+          {% else %}
+          <div data-bs-spy="scroll" data-bs-target="#page-nav" data-bs-root-margin="0px 0px -25%"
+            data-bs-smooth-scroll="true" class="rst-content overflow-y-auto" tabindex="0">
+            {% endif %}
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+              {%- block document %}
+              <article itemprop="articleBody" id="gr-article" class="gr-article">
+                {% block body %}{% endblock %}
+              </article>
+              {% if self.comments()|trim %}
+              <div class="articleComments">
+                {% block comments %}{% endblock %}
+              </div>
+              {% endif%}
+            </div>
+            {%- endblock %}
+            {% include "footer.html" %}
+          </div>
+          {%- endblock %}
+          <nav class="text-nowrap overflow-auto" id="page-nav">
+            {{ toc }}
+          </nav>
+      </section>
+
+    </div>
+
+
+    {% if not embedded %}
+    <script type="text/javascript" src="{{ pathto('_static/js/vendor/popper.min.js', 1) }}"></script>
+    <script type="text/javascript" src="{{ pathto('_static/js/vendor/anchor.min.js', 1) }}"></script>
+    <script type="text/javascript" src="{{ pathto('_static/js/vendor/bootstrap.min.js', 1) }}"></script>
+    <script type="text/javascript" src="{{ pathto('_static/js/theme.js', 1) }}"></script>
+    {#- SEARCH #}
+    <!-- <script type="text/javascript" src="{{ pathto('_static/language_data.js', 1) }}"></script>
+  <script type="text/javascript" src="{{ pathto('_static/js/searchtools.min.js', 1) }}"></script>
+  <script type="text/javascript" src="{{ pathto('_static/js/autocomplete.min.js', 1) }}"></script> -->
+    {%- for scriptfile in script_files %}
+    {%- if scriptfile not in blacklist_script_files %}
+    {{ js_tag(scriptfile) }}
+    {%- endif %}
+    {%- endfor %}
+    {%- endif %}
+    {# SEARCH -#}
+    <script type="text/javascript" id="searchindexloader"></script>
+    <!-- scripts2 -->
+    {%- block scripts2 %}{% endblock -%}
+    <!-- /scripts2 -->
+    <!-- footer2 -->
+    {%- block footer2 %}{% endblock -%}
+    <!-- /footer2 -->
+
+</body>
+
+</html>

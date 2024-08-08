@@ -1,0 +1,99 @@
+@import "variables";
+
+@mixin make-container($padding-x: $container-padding-x) {
+    width: 100%;
+    padding-right: $padding-x;
+    padding-left: $padding-x;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.container-max {
+    @include make-container(0);
+}
+
+#main-nav {
+    height: $headerheight;
+    z-index: 1;
+    border-bottom: $border-width $border-style $border-color;
+}
+
+.navbar-brand img {
+    height: 50px;
+}
+
+.gr-container {
+    max-height: calc(100% - #{$headerheight});
+}
+
+#side-nav {
+    display: none;
+    width: MIN(25%, 350px);
+    background-color: $gray-200;
+}
+
+@include media-breakpoint-up(md) {
+    #side-nav {
+        display: flex;
+    }
+}
+
+#main-section {
+    width: 100%;
+}
+
+@include media-breakpoint-up(lg) {
+    #main-section {
+        width: calc(100% - MIN(25%, 350px));
+    }
+}
+
+.rst-content {
+    float: left;
+    width: 100%;
+    padding: 20px;
+}
+
+@include media-breakpoint-up(lg) {
+    .rst-content {
+        float: left;
+        width: 80%;
+    }
+}
+
+@include media-breakpoint-up(xxl) {
+    .rst-content {
+        width: 1000px;
+    }
+}
+
+#page-nav {
+    display: none;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+@include media-breakpoint-up(lg) {
+    #page-nav {
+        display: block;
+        margin-left: 0;
+        width: 20%;
+        float: left;
+        height: 100%;
+    }
+}
+
+@include media-breakpoint-up(xxl) {
+    #page-nav {
+        width: 350px;
+    }
+}
+
+#page-nav ul {
+    list-style-type: none;
+
+    .active {
+        font-weight: bold;
+    }
+}

@@ -1,0 +1,10 @@
+{%- if builder != 'singlehtml' %}
+
+{% set search_project = 'Docs' %}
+
+<div role="search">
+    <input class="w-100 mt-2 mb-4 px-4 py-2 border border-0" type="text" name="q"
+        placeholder="Search {{ search_project }}" />
+    <i class="fa-solid fa-magnifying-glass"></i>
+</div>
+{%- endif %}

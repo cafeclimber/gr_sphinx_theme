@@ -1,0 +1,167 @@
+.admonition {
+    margin-top: 1em;
+    margin-bottom: 1.5em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+    overflow: hidden;
+    // box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    border-radius: $border-radius;
+
+    *:last-child {
+        margin-bottom: 0;
+    }
+
+    p:not(.admonition-title) {
+        margin: 0.5em 1em;
+    }
+
+    dl {
+        margin: 0.5em 1em;
+    }
+}
+
+.admonition-title {
+    font-size: 1.25em;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    padding: 0.25em 0.75em;
+
+    &:before {
+        font-family: 'Font Awesome 5 Free';
+        margin-right: 0.25em;
+    }
+}
+
+.admonition {
+    &.attention {
+        background-color: lighten($warning, 20%);
+
+        .admonition-title {
+            background-color: lighten($warning, 10%);
+            color: darken($warning, 30%);
+
+            &:before {
+                content: "\f06a";
+            }
+        }
+    }
+
+    &.caution {
+        background-color: lighten($warning, 20%);
+
+        .admonition-title {
+            background-color: lighten($warning, 10%);
+            color: darken($warning, 30%);
+
+            &:before {
+                content: "\f071";
+            }
+        }
+    }
+
+    &.danger {
+        background-color: lighten($danger, 20%);
+
+        .admonition-title {
+            background-color: lighten($danger, 10%);
+            color: darken($danger, 30%);
+
+            &:before {
+                content: "\f071";
+            }
+        }
+    }
+
+    &.error {
+        background-color: lighten($danger, 20%);
+
+        .admonition-title {
+            background-color: lighten($danger, 10%);
+            color: darken($danger, 30%);
+
+            &:before {
+                content: "\f057";
+            }
+        }
+    }
+
+    &.hint {
+        background-color: lighten($success, 20%);
+
+        .admonition-title {
+            background-color: lighten($success, 10%);
+            color: darken($success, 30%);
+
+            &:before {
+                content: "\f0eb";
+            }
+        }
+    }
+
+    &.important {
+        background-color: lighten($warning, 20%);
+
+        .admonition-title {
+            background-color: lighten($warning, 10%);
+            color: darken($warning, 30%);
+
+            &:before {
+                content: "\f12a";
+            }
+        }
+    }
+
+    &.note {
+        background-color: lighten($info, 20%);
+
+        .admonition-title {
+            background-color: lighten($info, 10%);
+            color: darken($info, 30%);
+
+            &:before {
+                content: "\f05a";
+            }
+        }
+    }
+
+    &.seealso {
+        background-color: lighten($info, 20%);
+
+        .admonition-title {
+            background-color: lighten($info, 10%);
+            color: darken($info, 30%);
+
+            &:before {
+                content: "\f064";
+            }
+        }
+    }
+
+    &.tip {
+        background-color: lighten($success, 20%);
+
+        .admonition-title {
+            background-color: lighten($success, 10%);
+            color: darken($success, 30%);
+
+            &:before {
+                content: "\f0eb";
+            }
+        }
+    }
+
+    &.warning {
+        background-color: lighten($warning, 20%);
+
+        .admonition-title {
+            background-color: lighten($warning, 10%);
+            color: darken($warning, 30%);
+
+            &:before {
+                content: "\f071";
+            }
+        }
+    }
+}

@@ -1,0 +1,26 @@
+.align-center,
+.centered {
+    @extend .text-center;
+}
+
+.with-border {
+    @extend .border;
+    @extend .border-2;
+}
+
+.with-shadow {
+    margin: 0.25em 0.25em 0.75em 0.25em;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.no-focus {
+    outline: none !important;
+}
+
+.cc {
+    clear: both;
+}
+
+.rubric {
+    font-weight: 700;
+}

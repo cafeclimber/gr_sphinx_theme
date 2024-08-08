@@ -1,0 +1,35 @@
+.clear-both {
+    clear: both;
+}
+
+/**
+* Headerlink
+*/
+.headerlink {
+    position: relative;
+    font-size: .65em;
+    visibility: hidden;
+    top: -.15em;
+
+    &:after {
+        content: "\f0c1";
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        margin-left: -.35em;
+    }
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+*:hover>.headerlink:after {
+    visibility: visible;
+}
+
+/**
+* Sections
+*/
+section {
+    @include clearfix;
+}

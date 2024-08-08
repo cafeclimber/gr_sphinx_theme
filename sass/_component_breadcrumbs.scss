@@ -1,0 +1,36 @@
+.gr-breadcrumbs-wrapper {
+    padding: 0 20px;
+}
+
+@include media-breakpoint-up(lg) {
+    .gr-breadcrumbs-wrapper {
+        float: left;
+        width: 80%;
+
+    }
+}
+
+@include media-breakpoint-up(xxl) {
+    .gr-breadcrumbs-wrapper {
+        width: 1000px;
+    }
+}
+
+.page-nav-title {
+    display: none;
+}
+
+@include media-breakpoint-up(lg) {
+    .page-nav-title {
+        display: block;
+        margin-left: 0;
+        width: 20%;
+        float: left;
+    }
+}
+
+@include media-breakpoint-up(xxl) {
+    .page-nav-title {
+        width: 350px;
+    }
+}

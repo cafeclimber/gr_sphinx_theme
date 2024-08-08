@@ -1,0 +1,18 @@
+table {
+    @extend .table;
+    @extend .table-striped;
+    @extend .table-hover;
+    // @extend .d-block;
+    @extend .w-100;
+    @extend .overflow-x-auto;
+
+    thead {
+        @extend .text-center;
+        border-bottom: 2px solid $gray-700;
+
+        tr>th {
+            @extend .text-nowrap;
+            color: $gray-700;
+        }
+    }
+}

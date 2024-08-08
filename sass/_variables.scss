@@ -1,0 +1,34 @@
+// --------------------------------------------------
+// Colors, defined in Bootstrap variables
+// --------------------------------------------------
+// $body-bg
+// $body-color
+
+// --------------------------------------------------
+// Colors
+// --------------------------------------------------
+
+$white: #ffffff;
+$gray-100: #f2f2f2;
+$gray-200: #e9ecef;
+$gray-300: #dedede;
+$gray-400: #cecece;
+$gray-500: #ababab;
+$gray-600: #6c6c6c;
+$gray-700: #494949;
+$gray-800: #313131;
+$gray-900: #212121;
+$black: #000000;
+
+$primary: #ff6905;
+$success: #5cb85c;
+$info: #5bc0de;
+$warning: #f0ad4e;
+$danger: #d9534f;
+
+$link-decoration: none;
+$link-hover-decoration: underline;
+$offcanvas-bg-color: $gray-200;
+
+$headerheight: 80px;
+$card-cap-bg: lighten($primary, 40%);

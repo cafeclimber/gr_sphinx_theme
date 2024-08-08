@@ -1,0 +1,26 @@
+[theme]
+inherit = "basic"
+stylesheets = [
+    "css/theme.css"
+]
+
+pygments_style = { default = "default", dark = "monokai" }
+
+[options]
+versions = {}
+canonical_url = ""
+analytics_id = ""
+analytics_anonymize_ip = "False"
+collapse_navigation = "True"
+sticky_navigation = "True"
+navigation_depth = "4"
+includehidden = "True"
+titles_only = ""
+display_version = "True"
+prev_next_buttons_location = "bottom"
+style_external_links = "False"
+style_nav_header_background = ""
+vcs_pageview_mode = ""
+
+logo_only = ""
+logo_url = "images/logo-with-text.svg"

@@ -1,0 +1,31 @@
+//
+// Sphinx extension: sphinx-tabs
+//
+$sphinx-tab-border-color: $primary;
+
+.rst-content {
+    [role="tablist"] {
+        border-bottom: 1px solid $sphinx-tab-border-color;
+    }
+
+    .sphinx-tabs-tab {
+        color: $body-color;
+        padding-top: 0.25em;
+        padding-bottom: 0.25em;
+    }
+
+    .sphinx-tabs-tab[aria-selected="true"] {
+        border: 1px solid $sphinx-tab-border-color;
+        border-bottom: 1px solid white;
+    }
+
+    .sphinx-tabs-panel {
+        border: 1px solid $sphinx-tab-border-color;
+        border-top: none;
+        padding: 1em 1em 0.4em 1em;
+
+        * {
+            margin-bottom: 0;
+        }
+    }
+}

@@ -1,0 +1,40 @@
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[project]
+name = "gr_sphinx_theme"
+version = "0.1.0"
+description = "GNU Radio Sphinx documentation theme"
+authors = [
+    {name = "Bailey Campbell", email = "baileycampbell1990@gmail.com"},
+]
+dependencies = [
+    "Sphinx>=7.3.7",
+    "sphinxcontrib-mermaid>=0.9.2",
+    "sphinx-tabs>=3.4.5",
+]
+requires-python = ">=3.9"
+readme = "README.rst"
+license = {text = "MIT"}
+
+packages = [
+  { include = "gr_sphinx_theme", from = "gr_sphinx_theme" }
+]
+
+[project.entry-points."sphinx.html_themes"]
+gr_sphinx_theme = "gr_sphinx_theme"
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.4.4",
+]
+
+[tool.pdm]
+distribution = true
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "Q", "W", "I", "C90", "D", "UP", "YTT", "S", "ANN", "SIM", "N"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"

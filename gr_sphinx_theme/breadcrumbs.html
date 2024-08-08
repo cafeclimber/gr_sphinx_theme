@@ -1,0 +1,110 @@
+{# Support for Sphinx 1.3+ page_source_suffix, but don't break old builds. #}
+
+{% if page_source_suffix %}
+{% set suffix = page_source_suffix %}
+{% else %}
+{% set suffix = source_suffix %}
+{% endif %}
+
+{% if meta is defined and meta is not none %}
+{% set check_meta = True %}
+{% else %}
+{% set check_meta = False %}
+{% endif %}
+
+{% if check_meta and 'github_url' in meta %}
+{% set display_github = True %}
+{% endif %}
+
+{% if check_meta and 'bitbucket_url' in meta %}
+{% set display_bitbucket = True %}
+{% endif %}
+
+{% if check_meta and 'gitlab_url' in meta %}
+{% set display_gitlab = True %}
+{% endif %}
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <nav
+    style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);"
+    aria-label="breadcrumb" class="d-flex">
+    <ol class="breadcrumb my-0 flex-grow-1 align-items-center">
+      {% block breadcrumbs %}
+      <li class="breadcrumb-item">
+        <a href="{{ pathto(master_doc) }}">
+          Docs
+        </a>
+      </li>
+
+      {% for doc in parents %}
+      <li class="breadcrumb-item"><a href="{{ doc.link|e }}">{{ doc.title }}</a> &gt;</li>
+      {% endfor %}
+      <li class="breadcrumb-item active">{{ title }}</li>
+      {% endblock %}
+    </ol>
+
+    {% block breadcrumbs_aside %}
+
+    {% if hasdoc(pagename) %}
+
+    {% if display_github %}
+
+    {% if check_meta and 'github_url' in meta %}
+    <!-- User defined GitHub URL -->
+    <i class="fa fa-github"></i>
+    <a href="{{ meta['github_url'] }}"> {{ _('Edit on GitHub') }}</a>
+    {% else %}
+    <i class="fa fa-github"></i>
+    <a href="https://{{ github_host|default(" github.com") }}/{{ github_user }}/{{ github_repo }}/{{
+      theme_vcs_pageview_mode|default("blob") }}/{{ github_version }}{{ conf_py_path }}{{ pagename }}{{ suffix }}"> {{
+      _('Edit on GitHub') }}</a>
+    {% endif %}
+
+    {% elif display_bitbucket %}
+    {% if check_meta and 'bitbucket_url' in meta %}
+    <!-- User defined Bitbucket URL -->
+    <button class="btn"><i class="fa fa-bitbucket"></i>{{ _('Edit on Bitbucket') }}</button>
+    {% else %}
+    <a href="https://bitbucket.org/{{ bitbucket_user }}/{{ bitbucket_repo }}/src/{{ bitbucket_version}}{{ conf_py_path }}{{ pagename }}{{ suffix }}?mode={{ theme_vcs_pageview_mode|default("
+      view") }}" class="fa fa-bitbucket"> {{ _('Edit on Bitbucket') }}</a>
+    {% endif %}
+
+    {% elif display_gitlab %}
+    {% if check_meta and 'gitlab_url' in meta %}
+    <!-- User defined GitLab URL -->
+    <i class="fa fa-gitlab"></i>
+    <a href="{{ meta['gitlab_url'] }}"> {{ _('Edit on GitLab') }}</a>
+    {% else %}
+    <i class="fa fa-gitlab"></i>
+    <a href="https://{{ gitlab_host|default(" gitlab.com") }}/{{ gitlab_user }}/{{ gitlab_repo }}/{{
+      theme_vcs_pageview_mode|default("blob") }}/{{ gitlab_version }}{{ conf_py_path }}{{ pagename }}{{ suffix }}"> {{
+      _('Edit on GitLab') }}</a>
+    {% endif %}
+
+    {% elif show_source and source_url_prefix %}
+    <i class="fas fa-code"></i>
+    <a href="{{ source_url_prefix }}{{ pagename }}{{ suffix }}">View Source</a>
+    {% elif show_source and has_source and sourcename %}
+    <a href="{{ pathto('_sources/' + sourcename, true)|e }}" rel="nofollow noopener" target="_blank"
+      class="btn btn-outline-secondary"><i class="fas fa-code"></i> View Source</a>
+    {% endif %}
+
+    {% endif %}
+
+    {% endblock %}
+  </nav>
+
+  {% if (theme_prev_next_buttons_location == 'top' or theme_prev_next_buttons_location == 'both') and (next or prev) %}
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+    {% if next %}
+    <a href="{{ next.link|e }}" class="btn btn-neutral float-right" title="{{ next.title|striptags|e }}"
+      accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+    {% endif %}
+    {% if prev %}
+    <a href="{{ prev.link|e }}" class="btn btn-neutral" title="{{ prev.title|striptags|e }}" accesskey="p"><span
+        class="fa fa-arrow-circle-left"></span> Previous</a>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>

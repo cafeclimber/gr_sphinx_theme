@@ -1,0 +1,93 @@
+.rst-content {
+    blockquote {
+        position: relative;
+        border: $card-border-width solid lighten($primary, 30%);
+        border-radius: $card-border-radius;
+        padding: 0.75rem 3.25rem;
+
+        &:before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            text-align: center;
+            height: 100%;
+            width: 2.5rem;
+            background-color: lighten($primary, 30%);
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            color: lighten($primary, 10%);
+            content: "\f10d";
+            padding-top: 1rem;
+        }
+
+        .attribution {
+            font-size: 92%;
+            font-style: italic;
+            text-align: right;
+        }
+
+        >div {
+            >*:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    img,
+    object {
+        display: inline-block;
+        max-width: 100%;
+        height: auto;
+
+        &.float-left {
+            margin-right: $spacer;
+            margin-bottom: $spacer;
+        }
+
+        &.float-right {
+            margin-left: $spacer;
+            margin-bottom: $spacer;
+        }
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: $gray-700;
+    }
+
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-left: -20px;
+        margin-right: -20px;
+        margin-bottom: 0.5em;
+        padding: 0.5rem;
+        background-color: $gray-200;
+        border-bottom: 2px solid $primary;
+    }
+
+    .line-block>.line-block {
+        margin-left: 1.75em;
+    }
+
+    .compact-list>ul.simple,
+    .compact-list>ol.simple,
+    .toctree-wrapper.compact-list ul,
+    .toctree-wrapper.compact-list ol,
+    ul.simple.compact-list,
+    ol.simple.compact-list {
+        li {
+            margin-top: 0;
+
+            >p {
+                margin: 0;
+            }
+        }
+    }
+}

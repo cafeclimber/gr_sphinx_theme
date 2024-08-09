@@ -4,6 +4,10 @@ This is the custom Sphinx theme used for the
 GNU Radio Sphinx-based documentation located
 at **TODO**. 
 
+It was inspired by [PyTorch's](https://github.com/pytorch/pytorch_sphinx_theme)
+and [TYPO3's](https://github.com/TYPO3-Documentation/sphinx_typo3_theme)
+Sphinx themes.
+
 To develop, you need to install:
 
     1. PDM
